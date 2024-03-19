@@ -63,10 +63,24 @@ const Wrapper = styled.div`
   max-width: 1000px;
   height: 100vh;
   margin: 0 auto;
+  @media screen and (max-width: 768px) {
+    width: 100vw;
+  }
+  @media screen and (max-width: 480px) {
+    height: auto;
+  }
 `;
 const Boards = styled.div`
   display: grid;
   width: 100%;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 10px;
+  @media screen and (max-width: 480px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 4px;
+    height: auto;
+    overflow-y: scroll;
+  }
 `;

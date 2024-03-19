@@ -13,6 +13,10 @@ interface IBoardProps {
 interface IForm {
   toDo: string;
 }
+interface IAreaProps {
+  isDraggingOver: boolean;
+  isDraggingFromThis: boolean;
+}
 
 const Board = ({ toDos, boardId }: IBoardProps) => {
   const setToDos = useSetRecoilState(toDoState);
@@ -23,7 +27,6 @@ const Board = ({ toDos, boardId }: IBoardProps) => {
       text: toDo,
     };
     setToDos((allBoards) => {
-      console.log("newTodo : ", newTodo);
       return {
         ...allBoards,
         [boardId]: [newTodo, ...allBoards[boardId]],
@@ -74,13 +77,22 @@ const Wrapper = styled.div`
   background: ${(props) => props.theme.boardColor};
   display: flex;
   flex-direction: column;
+  @media screen and (max-width: 480px) {
+    padding: 10px 10px 0;
+    min-height: 300px;
+    height: 300px;
+    max-height: 300px;
+    height: auto;
+    border-radius: 0;
+  }
 `;
 const Form = styled.form`
   width: 100%;
   input {
-    width: 100%;
+    width: calc(100% - 10px);
     padding: 10px 0 10px 10px;
     border: none;
+    border-radius: 4px;
     margin-bottom: 10px;
   }
 `;
@@ -89,12 +101,12 @@ const Title = styled.h2`
   font-weight: 700;
   text-align: center;
   margin-bottom: 20px;
+  @media screen and (max-width: 480px) {
+    font-size: 18px;
+    text-align: left;
+    margin-bottom: 8px;
+  }
 `;
-
-interface IAreaProps {
-  isDraggingOver: boolean;
-  isDraggingFromThis: boolean;
-}
 
 const Area = styled.div<IAreaProps>`
   background: ${(props) =>
@@ -104,6 +116,11 @@ const Area = styled.div<IAreaProps>`
       ? "#ffbb63"
       : "#ccc"};
   flex-grow: 1;
+  max-height: 410px;
   transition: background 0.2s ease-in-out;
   border-radius: 4px;
+  overflow-y: scroll;
+  @media screen and (max-width: 480px) {
+    max-height: 220px;
+  }
 `;
